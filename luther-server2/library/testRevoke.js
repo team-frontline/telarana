@@ -13,7 +13,7 @@ const wallet = new FileSystemWallet(walletPath);
 
 const gatewayOptions = {wallet, identity: 'user2', discovery: {enabled: true, asLocalhost: true}};
 
-const ccpPath = path.resolve(__dirname, '..', 'telarana-network', 'connection-org1.json');
+const ccpPath = path.resolve(__dirname, '..','..', 'telarana-network', 'connection-org1.json');
 
 // console.log("ccPath is " + ccpPath); // testing
 

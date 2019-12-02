@@ -4,7 +4,7 @@ var fs = require('fs');
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
-const walletPath = path.resolve(__dirname, '..', 'library', 'hfc-key-store');
+const ccpPath = path.resolve(__dirname, '..','..', 'telarana-network', 'connection-org1.json');
 // const walletDirectoryPath = path.join(process.cwd(), 'hfc-key-store');
 
 // Obtain the smart contract with which our application wants to interact

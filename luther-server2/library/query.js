@@ -9,7 +9,7 @@ var fs = require('fs');
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..', 'telarana-network', 'connection-org1.json');
+const ccpPath = path.resolve(__dirname, '..','..', 'telarana-network', 'connection-org1.json');
 // const ccpPath = path.resolve(__dirname, '..','..', 'telarana-networ', 'connection-org1.json');
 console.log("ccPath is " + ccpPath); // testing
 
