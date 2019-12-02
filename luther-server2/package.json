@@ -1,0 +1,28 @@
+{
+  "name": "luther-server",
+  "version": "1.0.0",
+  "description": "Luther is a RESTfull API application hosted on a AWS EC2 server where the MSChain, the hyperledger based certificate transparency platform is deployed. The service is used to as a service to manipulate blockchain transactions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-frontline/luther-server.git"
+  },
+  "keywords": [
+    "node",
+    "luther",
+    "mschain"
+  ],
+  "author": "Dulaj Dilshan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team-frontline/luther-server/issues"
+  },
+  "homepage": "https://github.com/team-frontline/luther-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}

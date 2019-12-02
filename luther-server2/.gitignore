@@ -1,0 +1,4 @@
+node_modules/
+.idea/
+first-network/crypto-config/
+git_push.sh
