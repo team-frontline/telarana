@@ -6,10 +6,9 @@ const fs = require('fs');
 const path = require('path');
 
 const ccpPath = path.resolve(__dirname, '../..', 'telarana-network', 'connection-org1.json');
-console.log("ccpPath: " + ccpPath);
+
 const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
 const ccp = JSON.parse(ccpJSON);
-console.log(ccp);
 
 async function main() {
     try {
