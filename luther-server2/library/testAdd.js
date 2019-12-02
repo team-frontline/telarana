@@ -4,7 +4,8 @@ var fs = require('fs');
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
-const ccpPath = path.resolve(__dirname, '..','..', 'telarana-network', 'connection-org1.json');
+const ccpPath = path.resolve(__dirname, '../..', 'telarana-network', 'connection-org1.json');
+const walletPath = path.resolve(__dirname, '..', 'library', 'hfc-key-store');
 // const walletDirectoryPath = path.join(process.cwd(), 'hfc-key-store');
 
 // Obtain the smart contract with which our application wants to interact
@@ -13,7 +14,6 @@ const wallet = new FileSystemWallet(walletPath);
 
 const gatewayOptions = {wallet, identity: 'user2', discovery: {enabled: true, asLocalhost: true}};
 
-const ccpPath = path.resolve(__dirname, '..', 'telarana-networ', 'connection-org1.json');
 
 // console.log("ccPath is " + ccpPath); // testing
 
