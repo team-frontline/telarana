@@ -1,6 +1,8 @@
 'use strict';
 var fs = require('fs');
 
+const {printTimeDate} = require('./printTime');
+
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
@@ -12,7 +14,6 @@ const wallet = new FileSystemWallet(walletPath);
 // console.log(`Wallet path: ${walletPath}`);
 
 const gatewayOptions = {wallet, identity: 'user2', discovery: {enabled: true, asLocalhost: true}};
-
 
 const ccpPath = path.resolve(__dirname, '../..', 'telarana-network', 'connection-org1.json');
 
@@ -45,6 +46,8 @@ async function isUserExists() {
 // }
 
 async function evaluateCert(subjectName, cert) {
+
+    printTimeDate();
 
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
@@ -90,13 +93,13 @@ async function evaluateCert(subjectName, cert) {
 
         let data = {result, message: "<<N/A>>"};
 
-        // console.log(`__ respond: ${JSON.stringify(data)}`);
+        console.log(`Function: Query, \nRespond: \n${JSON.stringify(data)}`);
         // console.log(`Transaction has been evaluated, result is: ${JSON.stringify(data)}`);
         return data;
 
 
     } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
+        console.error(`\nFunction: Query, Failed to evaluate transaction: ${error}`);
         // process.exit(1);
         // process.exit(-1);
         // let result = {subjectName: "XX", revokeStatus: "notAvailable"};
@@ -112,16 +115,16 @@ async function evaluateCert(subjectName, cert) {
         let data = {result, message: error};
         // let data = {result};
 
-        console.log(`NOT FOUND\n respond: ${JSON.stringify(data)}`);
-        console.log(error);
+        // console.log(`NOT FOUND\n respond: ${JSON.stringify(data)}`);
+        // console.log(error);
         return data;
 
     }
-    // finally {
-    //     // Disconnect from the gateway
-    //     console.log('Disconnect from Fabric gateway.');
-    //     gateway.disconnect();
-    // }
+    finally {
+        // Disconnect from the gateway
+        console.log('==========================================================================================\n\n');
+        // gateway.disconnect();
+    }
 }
 
 // isUserExists();

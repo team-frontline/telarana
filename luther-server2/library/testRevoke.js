@@ -1,6 +1,8 @@
 'use strict';
 var fs = require('fs');
 
+const {printTimeDate} = require('./printTime');
+
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
@@ -18,6 +20,8 @@ const ccpPath = path.resolve(__dirname, '../..', 'telarana-network', 'connection
 // console.log("ccPath is " + ccpPath); // testing
 
 async function revokeCertificate(certString, caCertString, caSigOnCert) {
+
+    printTimeDate();
 
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
@@ -40,12 +44,12 @@ async function revokeCertificate(certString, caCertString, caSigOnCert) {
         let result = {status: "OK", buffer: {}, error: {}};
         await contract.submitTransaction('revokeCertificate', certString, caCertString, caSigOnCert)
             .then((buffer) => {
-                console.log("buffer: ", JSON.stringify(buffer));    //JSON.stringify(buffer)
+                console.log("function: Revoke, buffer: ", JSON.stringify(buffer));    //JSON.stringify(buffer)
                 //     result.buffer = JSON.parse(buffer.toString());
                 //     result.err = "";
                 // })
             }).catch((error) => {
-                console.log("error in transaction: ", error.toString());
+                console.log("function: Revoke, error in transaction: ", error.toString());
                 throw error;
             });
 
@@ -62,8 +66,12 @@ async function revokeCertificate(certString, caCertString, caSigOnCert) {
         return {status: "OK", buffer: {}};
 
     } catch (error) {
-        console.error(`Failed to submit transaction: ${error}`);
-        return {status: "FAILED",error};
+        console.error(`function: Revoke, Failed to submit transaction: ${error}`);
+        return {status: "FAILED", error};
+    } finally {
+        // Disconnect from the gateway
+        console.log('==========================================================================================\n\n');
+        // gateway.disconnect();
     }
 }
 

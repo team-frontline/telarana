@@ -1,6 +1,8 @@
 'use strict';
 var fs = require('fs');
 
+const {printTimeDate} = require('./printTime');
+
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
@@ -13,38 +15,11 @@ const wallet = new FileSystemWallet(walletPath);
 
 const gatewayOptions = {wallet, identity: 'user2', discovery: {enabled: true, asLocalhost: true}};
 
-
 const ccpPath = path.resolve(__dirname, '../..', 'telarana-network', 'connection-org1.json');
 
-// console.log("ccPath is " + ccpPath); // testing
-
-async function isUserExists() {
-    // Check to see if we've already enrolled the user.
-    let userExists = await wallet.exists(gatewayOptions.identity);
-    if (!userExists) {
-        console.log(`User '${gatewayOptions.identity}': doesn't exist`)
-    } else {
-        console.log(`User '${gatewayOptions.identity}': exists`)
-    }
-    return userExists.toString();
-}
-
-// async function gateway() {
-//     // Create a new gateway for connecting to our peer node.
-//     const gateway = new Gateway();
-//     await gateway.connect(ccpPath, gatewayOptions);
-//
-//     // Get the network (channel) our contract is deployed to.
-//     const network = await gateway.getNetwork('mychannel');
-//     // console.log(network);
-//
-//     // Get the contracttermi from the network.
-//     const contract = network.getContract('mschain');
-//     // console.log(contract);
-//     return contract;
-// }
-
 async function getHistory(subjectName, cert) {
+
+    printTimeDate();
 
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
@@ -77,12 +52,11 @@ async function getHistory(subjectName, cert) {
 
         // console.log(`__ respond: ${JSON.stringify(data)}`);
         // console.log(`Query Result: \n${JSON.stringify(data)}`);
-        console.log('\nResponse');
-        console.log(data);
+        console.log(`Function: History, \nRespond: \n${JSON.stringify(data)}`);
         return data;
 
     } catch (error) {
-        console.error(`Failed to evaluate transaction: ${error}`);
+        console.error(`Function: History, Failed to query: ${error}`);
         // process.exit(1);
         // process.exit(-1);
         // let result = {subjectName: "XX", revokeStatus: "notAvailable"};
@@ -97,21 +71,20 @@ async function getHistory(subjectName, cert) {
         let data = {result, message: error};
         // let data = {result};
 
-        console.log("Error getting history:", error);
         return data;
 
     }
-    // finally {
-    //     // Disconnect from the gateway
-    //     console.log('Disconnect from Fabric gateway.');
-    //     gateway.disconnect();
-    // }
+    finally {
+        // Disconnect from the gateway
+        console.log('==========================================================================================\n\n');
+        // gateway.disconnect();
+    }
 }
 
 // isUserExists();
 // evaluateCert();
 
 module.exports = {
-    isUserExists, getHistory
+    getHistory
 };
 

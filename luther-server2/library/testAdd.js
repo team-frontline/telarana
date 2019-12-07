@@ -1,6 +1,8 @@
 'use strict';
 var fs = require('fs');
 
+const {printTimeDate} = require('./printTime');
+
 const {FileSystemWallet, Gateway} = require('fabric-network');
 const path = require('path');
 
@@ -18,6 +20,8 @@ const gatewayOptions = {wallet, identity: 'user2', discovery: {enabled: true, as
 // console.log("ccPath is " + ccpPath); // testing
 
 async function addCertificate(certString, intermediateCertString, sigString) {
+
+    printTimeDate();
 
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
@@ -40,13 +44,13 @@ async function addCertificate(certString, intermediateCertString, sigString) {
         let result = {status: "OK", buffer: {}, err: {}};
         await contract.submitTransaction('addCertificate', certString, intermediateCertString, sigString)
             .then((buffer) => {
-                console.log("buffer: ", JSON.stringify(buffer));    //JSON.stringify(buffer)
+                console.log("function: Add, buffer: ", JSON.stringify(buffer));    //JSON.stringify(buffer)
                 //     result.buffer = JSON.parse(buffer.toString());
                 //     result.err = "";
                 // })
             })
             .catch((error) => {
-                console.log("error: ", error.toString());
+                console.log("Function: Add, error: ", error.toString());
                 throw error;
             });
 
@@ -64,8 +68,12 @@ async function addCertificate(certString, intermediateCertString, sigString) {
         return {status: "OK", buffer: {}};
 
     } catch (error) {
-        console.error(`Failed to submit transaction: ${error}`);
+        console.error(`\nfunction: Add, Failed to submit transaction: ${error}`);
         return {status: "FAILED", error};
+    } finally {
+        // Disconnect from the gateway
+        console.log('==========================================================================================\n\n');
+        // gateway.disconnect();
     }
 }
 
