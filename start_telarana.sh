@@ -126,5 +126,13 @@ docker exec \
 set +x
 
 cat <<EOF
-Total setup execution time : $(($(date +%s) - starttime)) secs ...
+Total setup execution time : $(($(date +%s) - starttime)) secs.
+
+Initiaize the luther server and start the Luther Server:
+    Step 1: Go to luther_server2 in the directory and go insode the library directory
+    Step 2: Remove hfc-key-store
+    Step 3: Run enrollAdmin.js with node
+    Step 4: Run registerUser.js with node
+    Step 5: Go back (to Luther Server 2 directory)
+    Step 6: run node server.js (It will start the luther server)
 EOF
