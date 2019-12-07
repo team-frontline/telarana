@@ -10,6 +10,7 @@ router.use(bodyParser.urlencoded({extended: true})); // support encoded bodies
 const testQuery = require("../../library/testQuery");
 const testAdd = require("../../library/testAdd");
 const testRevoke = require("../../library/testRevoke");
+const testQueryHistory = require("../../library/testQueryHistory");
 
 router.get('/', (req, res, next) => {
     res.status(200).json({
@@ -23,17 +24,26 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.get('/is-user', async (req, res, next) => {
+router.get('/user-exists', async (req, res, next) => {
     res.status(200).json({
         message: 'User validated',
         payload: {user: await testQuery.isUserExists()}
     });
 });
 
-router.get('/test-eval', async (req, res, next) => {
+router.get('/is-alive', async (req, res, next) => {
     res.status(200).json({
-        message: 'evaluated',
-        payload: {certStatus: await testQuery.evaluateCert()}
+        alive:true
+    });
+});
+
+router.post('/get-history', async (req, res, next) => {
+    let query = await testQueryHistory.getHistory(req.body.subjectName);
+    res.status(200).json({
+        operation: "Get History",
+        status: "OK",
+        data: query.result,
+        message: query.message
     });
 });
 
